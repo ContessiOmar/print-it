@@ -17,32 +17,38 @@ const slidesData = [
 	}
   ];
   
-  var slideIndex = 0;
-  var slides = document.querySelectorAll('#banner .banner-img');
-  var dots = document.querySelectorAll('#banner .dot');
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('#banner .banner-img');
+  const dots = document.querySelectorAll('#banner .dot');
+
+  /**
+ * Affiche la diapositive spécifiée par index
+ * @param {number} currentIndex - L'index de la diapositive que on va afficher
+ */
   
-  function showSlide(index) {
-	for (var i = 0; i < slides.length; i++) {
-	  slides[i].style.display = 'none';
-	  dots[i].classList.remove('dot_selected');
-	}
-	slides[index].style.display = 'block';
-	dots[index].classList.add('dot_selected');
+  function showSlide(currentIndex) {
+	for (let i = 0; i < slides.length; i++) {
+	  slides[i].style.display = 'none'; // Don't show any pictures
+	  dots[i].classList.remove('dot_selected'); // Don't show the class "dot_selected"
+	} 
+
+	slides[currentIndex].style.display = 'block'; //Affiche limage correspondant à l'index courant
+	dots[currentIndex].classList.add('dot_selected'); //Applique la class "dot_selected" uniquement au "dot" correspondant a l'image.
   }
   
-  function changeSlide(n) {
-	slideIndex = (slideIndex + n + slides.length) % slides.length;
+  function changeSlide(direction) {
+	slideIndex = (slideIndex + direction + slides.length) % slides.length;
 	showSlide(slideIndex);
-  }
+  } // Fonction pour changer l'image en fonction de la direction specifiée. (on utilise "slides.lenght" pour selectioner toutes les slides present et "%"" pour faire un sort que le switch de des images ne termine jamais.)
   
   document.querySelector('#banner .arrow_left').addEventListener('click', function() {
 	changeSlide(-1);
-  });
+  }); //Change l'image lorsque le bouton à gauche est cliqué
   
   document.querySelector('#banner .arrow_right').addEventListener('click', function() {
 	changeSlide(1);
-  });
+  }); //Change l'image lorsque le bouton à droit est cliqué
   
  
   showSlide(slideIndex);
-  
+  // Affiche l'image initiale
