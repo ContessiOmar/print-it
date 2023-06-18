@@ -23,20 +23,24 @@ const slidesData = [
   dotsContainer.classList.add('dots');
   slidesContainer.appendChild(dotsContainer);
   const dots = [];
+
   
-  slidesData.forEach((slide, index) => {
+  slidesData.forEach((slide, currentIndex) => {
 	const dot = document.createElement('div');
 	dot.classList.add('dot');
 	dotsContainer.appendChild(dot);
 	dots.push(dot);
 	dot.addEventListener('click', function () {
-	  showSlide(index);
+	  showSlide(currentIndex);
 	});
   });
-  
-  function showSlide(index) {
-	slideIndex = index;
+
+  function showSlide(currentIndex) {
+	slideIndex = currentIndex;
 	slidesContainer.style.backgroundImage = `url(./assets/images/slideshow/${slidesData[slideIndex].image})`;
+	bannerContainer = document.getElementById('tagline') 
+	bannerContainer.innerHTML = '' + slidesData[slideIndex].tagLine; //
+	
 	dots.forEach((dot, dotIndex) => {
 	  if (dotIndex === slideIndex) {
 		dot.classList.add('dot_selected');
@@ -50,6 +54,8 @@ const slidesData = [
 	slideIndex = (slideIndex + direction + slidesData.length) % slidesData.length;
 	showSlide(slideIndex);
   }
+
+
   
   document.querySelector('#banner .arrow_left').addEventListener('click', function () {
 	changeSlide(-1);
